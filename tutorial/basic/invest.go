@@ -5,11 +5,12 @@ import (
 	"math"
 )
 
-func Investment() {
-	var investmentAmount = 1000;
-	var expectedReturnRate = 5.5;
-	var years = 10;
+func Investment(investmentAmount float64, expectedReturnRate float64, years float64) {
+	futureValue := investmentAmount * math.Pow(1 + expectedReturnRate / 100, float64(years));
+	fmt.Println("Expected return value: ", math.Round(futureValue));
+}
 
-	var futureValue = float64(investmentAmount) * math.Pow(1 + expectedReturnRate / 100, float64(years));
-	fmt.Print("Expected return value: ", futureValue);
+func CustomerDetail() {
+	var name, city string = "yashas", "sbc";
+	fmt.Println("User", name, "from", city);
 }
