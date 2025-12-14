@@ -5,12 +5,23 @@ import (
 	"math"
 )
 
-func investment(investmentAmount float64, expectedReturnRate float64, years float64) {
-	futureValue := investmentAmount * math.Pow(1 + expectedReturnRate / 100, float64(years));
-	fmt.Println("Expected return value: ", math.Round(futureValue));
-}
+func investment() {
+	var investmentAmount, expectedReturnRate, years float64;
 
-func customerDetail() {
-	var name, city string = "yashas", "sbc";
-	fmt.Println("User", name, "from", city);
+	fmt.Print("Enter investment amount: ");
+	fmt.Scan(&investmentAmount);
+
+	fmt.Print("Enter expected return rate: ");
+	fmt.Scan(&expectedReturnRate);
+
+	fmt.Print("Enter time period in years: ");
+	fmt.Scan(&years);
+
+	const inflationRate float64 = 2.5;
+	
+	futureValue := investmentAmount * math.Pow(1 + expectedReturnRate / 100, float64(years));
+	futureRealValue := futureValue / math.Pow(1 + inflationRate / 100.0, years);
+	
+	fmt.Println("Expected return value: ", math.Round(futureValue));
+	fmt.Println("Expected real return value: ", math.Round(futureRealValue));
 }
