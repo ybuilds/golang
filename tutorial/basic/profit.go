@@ -23,7 +23,7 @@ func profitCalculator() {
 	
 	fmt.Println("\nSummary");
 	fmt.Println("-------");
-	fmt.Println("Earning before tax =", earning);
-	fmt.Println("Earning after tax =", profit);
-	fmt.Println("Profit ratio =", profitRatio);
+	fmt.Printf("Earning before tax = %f\n", earning);
+	fmt.Printf("Earning after tax = %f\n", profit);
+	fmt.Printf("Profit ratio = %f\n", profitRatio);
 }
