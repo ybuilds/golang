@@ -3,10 +3,25 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 )
 
+const fileName string = "balance.dat";
+
+func writeBalanceToFile(balance int) {
+	balanceText := fmt.Sprint(balance);
+	os.WriteFile(fileName, []byte(balanceText), 0777);
+}
+
+func readBalanceFromFile() int {
+	data, _ := os.ReadFile(fileName);
+	balanceText := string(data);
+	balance, _ := strconv.ParseFloat(balanceText, 64);
+	return int(balance);
+}
+
 func bankDriver() {
-	var balance int = 0;
+	var balance int = readBalanceFromFile();
 	var amount int;
 	var choice int;
 
@@ -19,14 +34,16 @@ func bankDriver() {
 
 		switch choice {
 			case 1: 
+				balance = readBalanceFromFile();
 				fmt.Printf("Current balance: %d\n", balance);
 			case 2: {
 				fmt.Printf("Enter amount to be withdrawn: ");
 				fmt.Scan(&amount);
 
-				if amount > 0 {
+				if amount > 0 && amount <= balance {
 					balance -= amount;
 					fmt.Printf("Current balance: %d\n", balance);
+					writeBalanceToFile(balance);
 				} else {
 					fmt.Printf("Enter a valid amount\n");
 				}
@@ -38,6 +55,7 @@ func bankDriver() {
 				if amount > 0 {
 					balance += amount;
 					fmt.Printf("Current balance: %d\n", balance);
+					writeBalanceToFile(balance);
 				} else {
 					fmt.Printf("Enter a valid amount\n");
 				}
