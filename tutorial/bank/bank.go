@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -13,20 +14,39 @@ func writeBalanceToFile(balance int) {
 	os.WriteFile(fileName, []byte(balanceText), 0777);
 }
 
-func readBalanceFromFile() int {
-	data, _ := os.ReadFile(fileName);
+func readBalanceFromFile() (int, error) {
+	data, error := os.ReadFile(fileName);
+	
+	if error != nil {
+		fmt.Printf("File not found\n");
+		return 1000, errors.New("File not found, returning default balance");
+	}
+
 	balanceText := string(data);
-	balance, _ := strconv.ParseFloat(balanceText, 64);
-	return int(balance);
+	balance, error := strconv.ParseFloat(balanceText, 64);
+
+	if error != nil {
+		fmt.Printf("Error parsing data\n");
+		return 1000, errors.New("Failed to parse, returning default balance");
+	}
+
+	return int(balance), nil;
 }
 
 func bankDriver() {
-	var balance int = readBalanceFromFile();
+	balance, error := readBalanceFromFile();
+	
+	if error != nil {
+		fmt.Printf("ERR:[%s]\n", error);
+		os.Exit(1);
+	}
+	
 	var amount int;
 	var choice int;
 
-	fmt.Print("Welcome to Go Bank!\n");
-	fmt.Print("-------------------\n");
+	fmt.Printf("------GO BANK------\n");
+	fmt.Printf("Welcome to Go Bank!\n");
+	fmt.Printf("-------------------\n");
 	
 	for i:=0; i==0; {
 		fmt.Print("Choices: 1.Balance 2.Withdraw 3.Deposit 4.Exit: ");
@@ -34,7 +54,7 @@ func bankDriver() {
 
 		switch choice {
 			case 1: 
-				balance = readBalanceFromFile();
+				balance, _ = readBalanceFromFile();
 				fmt.Printf("Current balance: %d\n", balance);
 			case 2: {
 				fmt.Printf("Enter amount to be withdrawn: ");
