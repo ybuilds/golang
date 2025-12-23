@@ -12,27 +12,41 @@ func bankDriver() {
 
 	fmt.Print("Welcome to Go Bank!\n");
 	fmt.Print("-------------------\n");
-	fmt.Print("Choices: 1.Balance 2.Withdraw 3.Deposit 4.Exit: ");
-	fmt.Scan(&choice);
+	
+	for i:=0; i==0; {
+		fmt.Print("Choices: 1.Balance 2.Withdraw 3.Deposit 4.Exit: ");
+		fmt.Scan(&choice);
 
-	if choice == 1 {
-		fmt.Printf("Current balance: %d\n", balance);
-	} else if choice == 2 {
-		fmt.Printf("Enter amount to be withdrawn: ");
-		fmt.Scan(&amount);
+		switch choice {
+			case 1: 
+				fmt.Printf("Current balance: %d\n", balance);
+			case 2: {
+				fmt.Printf("Enter amount to be withdrawn: ");
+				fmt.Scan(&amount);
 
-		balance -= amount;
-		fmt.Printf("Current balance: %d", balance);
-	} else if choice == 3 {
-		fmt.Printf("Enter amount to be deposited: ");
-		fmt.Scan(&amount);
-		
-		balance += amount;
-		fmt.Printf("Current balance: %d", balance);
-	} else if choice == 4 {
-		fmt.Printf("Thanks for using Go Bank!");
-		os.Exit(0);
-	} else {
-		fmt.Printf("Invalid choice!\n");
+				if amount > 0 {
+					balance -= amount;
+					fmt.Printf("Current balance: %d\n", balance);
+				} else {
+					fmt.Printf("Enter a valid amount\n");
+				}
+			}
+			case 3: {
+				fmt.Printf("Enter amount to be deposited: ");
+				fmt.Scan(&amount);
+				
+				if amount > 0 {
+					balance += amount;
+					fmt.Printf("Current balance: %d\n", balance);
+				} else {
+					fmt.Printf("Enter a valid amount\n");
+				}
+			}
+			case 4: {
+				fmt.Printf("Thanks for using Go Bank!");
+				os.Exit(0);
+			}
+			default: fmt.Printf("Invalid choice!\n");
+		}
 	}
 }
