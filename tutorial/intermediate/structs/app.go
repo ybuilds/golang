@@ -23,4 +23,15 @@ func main() {
 	user.Created = time.Now();
 
 	models.DisplayDetail(user);
+
+	/* Pass struct type as a value directly
+
+	user := models.User {
+		Name: name,
+		Age: age,
+		Email: email,
+		Created: time.Now(),
+	}
+
+	models.DisplayDetail(user); */
 }
