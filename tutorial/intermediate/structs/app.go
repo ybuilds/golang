@@ -1,8 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"strconv"
+	"time"
 
+	"ybuilds.in/structs/models"
 	"ybuilds.in/structs/utils"
 )
 
@@ -10,7 +12,15 @@ func main() {
 	var name, email string;
 
 	name = utils.GetUserData("Enter name");
+	age, _ := strconv.ParseInt(utils.GetUserData("Enter age"), 10, 32);
 	email = utils.GetUserData("Enter email");
 
-	fmt.Printf("Welcome %s![%s]\n", name, email);
+	user := new(models.User);
+
+	user.Name = name;
+	user.Age = age;
+	user.Email = email;
+	user.Created = time.Now();
+
+	models.DisplayDetail(user);
 }
