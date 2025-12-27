@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"strconv"
 	"time"
 
@@ -15,23 +17,14 @@ func main() {
 	age, _ := strconv.ParseInt(utils.GetUserData("Enter age"), 10, 32);
 	email = utils.GetUserData("Enter email");
 
-	user := new(models.User);
+	//Creation using CONSTRUCTOR type FUNCTION
+	user, error := models.NewUser(name, email, age, time.Now());
 
-	user.Name = name;
-	user.Age = age;
-	user.Email = email;
-	user.Created = time.Now();
-
-	models.DisplayDetail(user);
-
-	/* Pass struct type as a value directly
-
-	user := models.User {
-		Name: name,
-		Age: age,
-		Email: email,
-		Created: time.Now(),
+	if error != nil {
+		fmt.Printf("E[%s]\n", error);
+		os.Exit(1);
 	}
 
-	models.DisplayDetail(user); */
+	user.DisplayDetail();
+	user.ResetEmail();
 }
