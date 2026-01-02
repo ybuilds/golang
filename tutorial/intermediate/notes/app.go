@@ -23,6 +23,11 @@ func main() {
 	}
 
 	note.ViewNote()
+	saveError := note.SaveAsJson()
 
-	fmt.Printf("%s: %s", title, description)
+	if saveError != nil {
+		fmt.Printf("E - error saving note in Main - %v", saveError)
+	} else {
+		fmt.Printf("Note saved as JSON\n")
+	}
 }

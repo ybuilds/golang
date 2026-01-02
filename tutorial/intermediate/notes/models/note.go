@@ -1,15 +1,18 @@
 package models
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+	"strings"
 	"time"
 )
 
 type Note struct {
-	title       string
-	description string
-	created     time.Time
+	Title       string
+	Description string
+	Created     time.Time
 }
 
 func NewNote(title, description string) (*Note, error) {
@@ -19,13 +22,32 @@ func NewNote(title, description string) (*Note, error) {
 	}
 
 	return &Note{
-		title:       title,
-		description: description,
-		created:     time.Now(),
+		Title:       title,
+		Description: description,
+		Created:     time.Now(),
 	}, nil
 }
 
 func (note *Note) ViewNote() {
-	fmt.Printf("Title: %s\n", note.title)
-	fmt.Printf("Description: %s\n", note.description)
+	fmt.Printf("Title: %s\n", note.Title)
+	fmt.Printf("Description: %s\n", note.Description)
+}
+
+func (note *Note) SaveAsJson() error {
+	filename := strings.ReplaceAll(note.Title, " ", "_")
+	filename = strings.ToLower(filename)
+	jsonData, jsonError := json.Marshal(note)
+
+	if jsonError != nil {
+		fmt.Printf("E - error converting note to json in SaveAsJson")
+		return jsonError
+	}
+
+	os.WriteFile(
+		"./json/"+filename+".json",
+		jsonData,
+		0644,
+	)
+
+	return nil
 }
