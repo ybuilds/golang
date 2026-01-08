@@ -8,15 +8,14 @@ import (
 	"strings"
 )
 
-func GetUserData(prompt string) (string, error) {
-	fmt.Printf("%s: ", prompt)
+func GetData(prompt string) (string, error) {
+	fmt.Print(prompt + ": ")
 
 	scanner := bufio.NewReader(os.Stdin)
 	value, err := scanner.ReadString('\n')
 
 	if err != nil {
-		fmt.Printf("E - error reading data for prompt '%s'", prompt)
-		return "", errors.New("error reading data")
+		return "", errors.New("Error fetching value from standard input")
 	}
 
 	value = strings.Trim(value, "\n")
