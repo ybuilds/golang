@@ -1,7 +1,7 @@
 package main
 
-import "ybuilds.in/references/arrays"
+import "ybuilds.in/references/maps"
 
 func main() {
-	arrays.Driver()
+	maps.Driver()
 }

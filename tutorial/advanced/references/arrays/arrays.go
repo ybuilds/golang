@@ -28,10 +28,16 @@ func Driver() {
 		{"Book", 50},
 	}
 
-	products = append(products, &Product{"Tab", 15000})
+	products = append(products, &Product{"Tab", 15000}, &Product{"Laptop", 99000})
 
 	for _, i := range products {
 		fmt.Printf("%s: %d\n", i.name, i.price)
 	}
 
+	//make function
+	username := make([]string, 2, 5) //Length = 2; Capacity = 5;
+	username = append(username, "Yashas")
+	username = append(username, "Megha")
+
+	fmt.Println(username)
 }
