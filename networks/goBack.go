@@ -6,9 +6,6 @@ import (
 	"time"
 )
 
-const n = 10
-const win = 3
-
 func gbnSender() {
 	base := 0
 	for base < n {
